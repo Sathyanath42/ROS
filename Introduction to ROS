@@ -1,0 +1,74 @@
+ROS is a framework to connect multiple different applications written as nodes on the framework. Consider the following example
+Given a project such as a drone that can capture images:
+1. One node could be the camera capture and image processing
+2. While another node could be for the movemnet and control of the node
+3. ROS provides us with the means to connect the two and allows easy communication
+
+****************************************************System setup**************************************************************
+
+For this study ive used ROS melodic given the long term support it will receive
+Ive further used the vmware called Virtual box from Oracle version 6.0.18
+Following which ive setup Ubuntu 18.04 as my virtual machine on which ill be carrying out all of my work.
+ 
+
+
+***************************************************Bash Script setup***********************************************************
+
+Everytime we open a new terminal we have to add the following:
+
+source /opt/Ros/melodic/setup.bash
+
+Hence we can add it to the bash script to run everytime we open a new terminal as:
+  $ echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+  
+To open the bash script we can use $ vim .bashrc
+
+
+•To install additional binary packages we use
+sudo apt-get install ros-melodic-name of package
+
+•Roscore provides naming and registration services for all programs called nodes
+•always start rosmaster before using any Ros functionality and only one rosmaster can be run with roscore at a time
+
+
+***********************************************Setting up the Catkin Workspace*************************************************
+
+•setting up a catkin workspace (build space for ROS):
+
+$ mkdir catkin_ws
+
+$ cd catkin_ws
+
+$ mkdir src
+
+$ catkin_make
+
+•  we will now have build and devel folders which have been created by catkin
+
+•  we will have a CMakeLists.txt file in the src folder, which was created by catkin to edit the workspace
+
+•  all code written will be in the src folder, and if there are changes we will have to catkin build again
+
+•  Everytime we open a new catkin_ws we have to add the following similar to how we added a setup for ROS:
+
+~/catkin_we/devel$ source setup.bash
+
+• To not have to do it time we add this to the bashrc like this:
+
+~/catkin_we/devel$ vim ~/.bashrc
+
+Then add this line to the end of the bash script
+
+source ~/catkin_ws/devel/setup.bash
+
+Thus we have readied both the catkin_ws and the Ros setup for further use
+
+****************Notes:
+
+save on vim and exit using wq:,
+
+only exit using q:
+
+cd for entering a directory, cd.. for exiting it
+
+Notes***********************
