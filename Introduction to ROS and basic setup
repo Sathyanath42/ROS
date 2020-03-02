@@ -72,3 +72,21 @@ only exit using q:
 cd for entering a directory, cd.. for exiting it
 
 Notes***********************
+
+
+************************************************Setting up a ROS package*******************************************************
+
+
+
+• Different packages can handle different features such as a package for the camera and another for motion planning
+
+• we have to define dependencies for each package like this:
+
+~/catkin_we/src$ catkin_create_pkg my_robot_tutorials roscpp rospy std_msgs
+
+(Here roscpp is for C++ functionalities, rospy for python and std_msgs is for (discussed later))
+
+• now within each package we will have CMakeLists. txt and package.xml common. All the dependencies we've defined will be in the CMakeLists and in package.xml
+
+• finally we go to the catkin_ws and run catkin_make
+
