@@ -1,0 +1,209 @@
+*******************************************************ROS Node***************************************************************
+
+A process that performs computation, an application will contain many such nodes which will be bundled into packages.
+So for instance a camera package would have the image processing and the camera drivers as nodes.
+These nodes will work independently and will communicate using ROS functionality.
+
+Now the benefits of using nodes are:
+
+• Scalability
+
+• Fault Tolerance
+
+• Cross Platform ie language agnostic and thus one node can be written in python and another can be written in C++
+
+So for eg the nodes that need to be executed fast can be done in C++ while the application can be done in python.
+
+Note : Two nodes can't have the same name.
+
+***************************************************TO MAKE A PYTHON NODE*******************************************************:
+
+We enter the following directory:
+
+~/catkin_ws/src/my_robot_tutorials
+
+$ mkdir scripts
+
+$ cd scripts
+
+$ touch my_first_node.py
+
+$ chmod +x my_first_node.py (to make it an executable)
+
+Now we can edit it as
+
+vim my_first_node.py
+
+***************************PROGRAM EG
+
+#!/usr/bin/env python
+
+import rospy (we import the python directory)
+
+If __name__=='__main__':
+
+          rospy.init_node('my_first_python_node')
+
+(Here we initialize the node with a unique name)
+
+          rospy.loginfo("this node has been started") (Log functionality: 3 duties - the messages get printed to the screen, it gets written to the nodes log file, and it gets written to rosout)
+
+          rospy.sleep(1) (Sleeps for one second)
+
+          rospy.loginfo("Exit now")
+
+We save using wq:
+
+Then we run the file using
+
+python my_first_node.py
+
+***************************ALTERNATE PROGRAM EG
+
+Another eg would be:
+
+#!/usr/bin/env python
+
+import rospy (we import the python directory)
+
+If __name__=='__main__':
+
+          rospy.init_node('my_first_python_node')
+
+          rospy.loginfo("this node has been started")
+
+          rate=rospy.Rate(10)
+
+(we set the Freq as 10 Hz, 0.01 seconds)
+
+          while not rospy.is_shutdown():
+
+(the condition here is while the node is not shut down by Cntrl + C)
+
+                     rospy.loginfo("Hello")
+
+                     rate.sleep()
+
+(the node sleeps for the Freq we defined, if deleted the hello will be output continuously regardless of the Freq we set)
+
+Now to see all the nodes which are running we use the command
+
+$ rosnode list
+
+This will show the running node and /rosout ,rosout is the name of the console log reporting mechanism in ROS. It can be thought of as comprising several components: The `rosout` node for subscribing, logging, and republishing the messages.
+
+Note that we can't run two nodes of the same name simultaneously. One of them will receive a shutdown request if that happens.
+
+
+****************************************************TO MAKE A C++  NODE*******************************************************
+
+~/catkin_ws/src/my_robot_tutorials/src
+
+$ touch my_first_node.cpp
+
+Now we edit using
+
+$ vim my_first_node.cpp
+
+
+***************************PROGRAM
+
+#include ^ros/ros.h^
+
+(Includes the Ros cpp library)
+
+int main (int argc, char **argv)
+
+(we intialise the node with arguments)
+
+{
+
+                   ros::init(argc, argv, "my_first_cpp_node);
+
+                   ros::NodeHandle nh;
+
+                  (Essential for starting the node, not present in python)
+
+                   
+
+                   ROS_INFO("Node has been started");
+
+(Log functionality or printf)
+
+                   ros::Duration(1,0).sleep();
+
+     
+
+                    ROS_INFO("exit");
+
+}
+
+           
+
+Now we can't execute it directly, we need to compile it. For this we go to the following directory
+
+~/catkin_ws/src/my_robot_tutorials
+
+$ vim CMakeLists.txt
+
+Then we add the following line to declare a C++ executable
+
+add_executable(node_cpp src/my_first_node.cpp)
+
+(Now our c++ node will be complied by means of the node_cpp )
+
+target_link_libraries(node_cpp ${catkin_LIBRARIES})
+
+NOTE: Most of this syntax is present as comments in the CMakeLists.txt
+
+Then we run catkin_make in the basic catkin_ws directory
+
+It will go through the my_robot_tutorials and then build an executable
+
+We then proceed to the following directory:
+
+~/catkin_ws/devel/lib/my_robot_tutorials
+
+$./node_cpp (To execute)
+
+*****************************ALTERNATE PROGRAM EG
+
+include ^ros/ros.h^
+
+(Includes the Ros cpp library)
+
+int main (int argc, char **argv)
+
+(we intialise the node with arguments)
+
+{
+
+                   ros::init(argc, argv, "my_first_cpp_node);
+
+                   ros::NodeHandle nh;
+
+                  (Essential for starting the node, not present in python)           
+
+                   ROS_INFO("Node has been started");
+
+                   ros::Rate rate(10);
+
+                    while(ros::ok())
+
+                   {
+
+                           ROS_INFO("Hello");
+
+                            rate.sleep(); 
+                   }
+ }
+
+
+
+
+
+
+
+
+
+
