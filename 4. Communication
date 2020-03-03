@@ -1,0 +1,31 @@
+************************************************8Publisher and subscriber
+
+Radio analogy :
+
+The mobile phone (subscriber) would be tuned in to the Freq (Topic) of the radio station (publisher) and both must have the type of signal (AM/FM) (same data structure).
+
+Multiple subscribers can be tuned into multiple stations across the same freq and do not know of other subscribers but self.
+
+Subscribers further do not know who is publishing the data. It's merely turned into that Freq
+
+Similarly for publishers
+
+Further a publisher can send data on an FM signal and an AM signal which can be received by different subscribers
+
+Eg a car being a publisher is sending it's location values (Topic) which is subscribed to by a computer.
+
+Topic : A named bus over which nodes exchange messages
+
+The name must start with a letter.
+
+When to use a topic ?
+
+Unidirectional data stream (publisher to subscriber)
+
+Both are anonymous
+
+A topic has a message type
+
+Can be written in py and C++ in a rosnode
+
+The Rosmaster is contacted when a node wants to subscribe to a topic. (Rosmaster like a DNS server)
