@@ -1,0 +1,64 @@
+"Node" is the ROS term for an executable that is connected to the ROS network. While a publisher is a ("talker") node which will continually broadcast a message. 
+We create a new node in scripts as usual
+
+*********************************************************PYTHON PUBLISHER******************************************************
+
+$touch robot_news_rt.py
+$chmod +X robot_news_rt.py (to make it executable)
+vim robot_news_rt.py (to edit the file)
+
+**********************************************************CODE
+
+#!/usr/bin/env/python
+
+import rospy
+
+from std_msgs.msg import String % We import std_msgs to use the message string which contains a simple string data in it
+
+if __name__ == '__main__':
+
+rospy.init_node('robot_news_rt')
+
+pub = rospy.Publisher("/robot_news_radio", String, queue_size=10) 
+
+%We create a publisher with a name , a type and a queue size
+%Here queue_size acts as a buffer to give time for the subscriber to receive the message
+
+rate = rospy.Rate(2)
+
+while not rospy.is_shutdown():
+
+msg = String()
+
+msg.data = "Hi, this is your favourite radio"
+
+pub.publish(msg)
+
+rate.sleep()
+
+rospy.loginfo("Node was stopped")
+
+******************************************************************
+
+Now we will use a functionality called rostopic
+
+$rostopic list
+
+%Will display all the available topics
+
+%In this case it will include robot_news_radio
+
+$rostopic echo /robot_news_radio
+
+%Will allow us to listen to this publisher
+
+Output :
+
+data: "Hi, this is your favourite radio"
+
+
+
+
+
+
+
