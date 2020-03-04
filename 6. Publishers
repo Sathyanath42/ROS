@@ -22,7 +22,7 @@ if __name__ == '__main__':
 rospy.init_node('robot_news_rt')
 
 %This tells rospy the name of the node
-%if we add anonymous = True, then the uniqueness of the node is conmfirmed by adding random numbers at the end of the node.
+%if we add anonymous = True, then the uniqueness of the node is confirmed by adding random numbers at the end of the node.
 
 pub = rospy.Publisher("/robot_news_radio", String, queue_size=10) 
 
