@@ -110,8 +110,9 @@ rate.sleep();
 
 *******************************************************
 
-//The first NodeHandle created will actually do the initialisation of the node the last one destructed will cleanup any resources the node was using.
+//The first NodeHandle created will actually do the initialisation of the node, while the last one destructed will cleanup any resources the node was using.
 //The advertise function is how you tell ROS that you want to publish on a certain topic. This will include the type of the message (eg string) and the size of our publishing queue(10 is the buffer queue)
+//The publish() function is how you send messages. The parameter is the message object, the type of which must agree with the template parameter to the advertise() call.
 
 //ros::ok() will return false in the following cases:
 
@@ -133,9 +134,10 @@ target_link_libraries(robot_news_rt ${catkin_LIBRARIES})
 
 $rosrun my_robot_tutorials robot_news_rt.py
 
-//Note if there are two files of the same name and if the extension isn't given, Ros will run the C++ file
+*************************************************************Notes
 
-
+1. Note if there are two files of the same name and if the extension isn't given, Ros will run the C++ file
+2. ros::spinOnce() is necessary if you have callbacks from a subscriber, so its good practice to always add it.
 
 
 
