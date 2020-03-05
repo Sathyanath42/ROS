@@ -66,6 +66,75 @@ Output :
 
 data: "Hi, this is your favourite radio"
 
+*********************************************************C++ publisher*********************************************************
+
+We start off the same way. Creating a node.
+
+So in the src folder of my robot_tutorials
+
+$touch robot_news_rt.cpp
+
+$vim robot_news_rt.cpp
+
+**************************************************CODE
+
+#include <ros/ros.h>
+
+#include <std_msgs/String.h>
+
+int main(int argc, char **argv)
+
+{
+
+ros::init(argc, argv, "robot_news_rt");
+
+ros::NodeHandle nh;
+
+ros::Publisher pub = nh.advertise<std_msgs::String>("/robot_news_radio", 10);
+
+ros::Rate rate(3);
+
+while (ros::ok()){
+
+std_msgs:: String msg;
+
+msg.data = "hey, Sathya here";
+
+pub.publish(msg);
+
+rate.sleep();
+
+}
+
+}
+
+*******************************************************
+
+//The first NodeHandle created will actually do the initialisation of the node the last one destructed will cleanup any resources the node was using.
+//The advertise function is how you tell ROS that you want to publish on a certain topic. This will include the type of the message (eg string) and the size of our publishing queue(10 is the buffer queue)
+
+//ros::ok() will return false in the following cases:
+
+1. A SIGNIT is recieved (cntrl + C)
+
+2. We have been kicked off the network by a node of same name
+
+3. ros:: shutdown () has been called by another part of the application
+
+4. All Ros::NodeHandles have been destroyed
+
+//Then make the above file executable in the CMakeLists.txt file by adding the following lines:
+
+add executable (robot_news_rt sex/robot_news_rt.cpp)
+
+target_link_libraries(robot_news_rt ${catkin_LIBRARIES})
+
+//Run catkin_make and finally launch the file using rosrun as
+
+$rosrun my_robot_tutorials robot_news_rt.py
+
+//Note if there are two files of the same name and if the extension isn't given, Ros will run the C++ file
+
 
 
 
