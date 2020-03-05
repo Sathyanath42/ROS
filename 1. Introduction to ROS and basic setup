@@ -1,13 +1,13 @@
 ROS is a framework to connect multiple different applications written as nodes on the framework. Consider the following example
 Given a project such as a drone that can capture images:
 1. One node could be the camera capture and image processing
-2. While another node could be for the movemnet and control of the node
+2. While another node could be for the movement and control of the node
 3. ROS provides us with the means to connect the two and allows easy communication
 
 ****************************************************System setup**************************************************************
 
 For this study ive used ROS melodic given the long term support it will receive
-Ive further used the vmware called Virtual box from Oracle version 6.0.18
+Ive further used the virtual machine called Virtual box from Oracle version 6.0.18
 Following which ive setup Ubuntu 18.04 as my virtual machine on which ill be carrying out all of my work.
  
 
