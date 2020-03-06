@@ -1,0 +1,84 @@
+
+******************************************************Python subscriber********************************************************
+
+Now we shall listen to the publisher with a subscriber
+
+Consider the following executable
+
+***********************************************************CODE
+
+#!/use/bin/env/python
+
+import rospy
+
+import std.msgs.msg import String
+
+def callback_receive_radio_data(msg):
+
+rospy.loginfo("message received:")
+
+rospy.loginfo(msg)
+
+if __name__ == '__main__':
+
+rospy.init.node('smartphone', anonymous=True)
+
+%In Ros , nodes are uniquely named. If two nodes with the same name are launched, the previous one is kicked off. The anonymous=True flag means that rospy will choose a unique name for our 'listener' node so that multiple listeners can run simultaneously.
+
+sub = rospy.Subscriber("/robot_news_radio", String, callback_receive_radio_data)
+
+rospy.spin()
+**************************************************************
+
+%This will keep the node running until the smartphone node is stopped
+
+Now we run with rosrun the publisher node as follows:
+
+$rosrun my_robot_tutorials robot_news_rt.py
+
+And then run the subscriber node
+
+We can see the data sent ie the string in this case and the subscriber replying with a string ie message received.
+
+*******************************************************C++ subscriber**********************************************************
+
+We start off the same way. Creating a node
+
+So in the src folder of my robot_tutorials
+
+$touch smartphone_node.cpp
+
+$vim smartphone_node cpp
+
+***********************************************************CODE
+
+#include ^ros/ros.h^
+
+#include ^std_msgs/String.h^
+
+void callback_receive_radio_data(const std_msgs:: String& msg)
+
+{
+
+ROS_INFO("message received: %s", msg.data.c_str());
+
+}
+
+int main( int argc, char ** argv )
+
+{
+
+ros::init(argc, argv, "smartphone");
+
+ros::NodeHandle nh;
+
+ros:: Subscriber sub = nh.subscribe("/robot_news_radio", 1080, callback_receive_radio_data);
+
+ros::spin();
+
+}
+*************************************************************
+
+Make it executable using catkin_make
+
+And adding the relevant lines in CMakeLists
