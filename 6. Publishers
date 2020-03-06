@@ -10,41 +10,35 @@ vim robot_news_rt.py (to edit the file)
 **********************************************************CODE
 
 #!/usr/bin/env/python
-
 import rospy
-
 from std_msgs.msg import String 
 
 % We import std_msgs to use the message string which contains a simple string data in it.
 
 if __name__ == '__main__':
 
-rospy.init_node('robot_news_rt')
+    rospy.init_node('robot_news_rt')
 
 %This tells rospy the name of the node
 %if we add anonymous = True, then the uniqueness of the node is confirmed by adding random numbers at the end of the node.
 
-pub = rospy.Publisher("/robot_news_radio", String, queue_size=10) 
+    pub = rospy.Publisher("/robot_news_radio", String, queue_size=10) 
 
 %We create a publisher with a name , a type and a queue size
 %Here queue_size acts as a buffer to give time for the subscriber to receive the message
 
-rate = rospy.Rate(2)  #2Hz
+    rate = rospy.Rate(2)  #2Hz
 
 %Along with the method sleep(), it offers an easy way to set the desired rate
 %WIth an argument of 2, the loop would run 2 times in a second
 
-while not rospy.is_shutdown(): %checking the shutdown flag
+    while not rospy.is_shutdown(): %checking the shutdown flag
+        msg = String()
+        msg.data = "Hi, this is your favourite radio"
+        pub.publish(msg)
+        rate.sleep()
 
-msg = String()
-
-msg.data = "Hi, this is your favourite radio"
-
-pub.publish(msg)
-
-rate.sleep()
-
-rospy.loginfo("Node was stopped")
+    rospy.loginfo("Node was stopped")
 
 %finally we can also use the try - except form to try the main prog with except for rospy.ROSInterruptException : This catches the exception when cntrl + c is pressed or the node is shutdown.
 
@@ -79,30 +73,21 @@ $vim robot_news_rt.cpp
 **************************************************CODE
 
 #include <ros/ros.h>
-
 #include <std_msgs/String.h>
 
 int main(int argc, char **argv)
-
 {
 
-ros::init(argc, argv, "robot_news_rt");
+    ros::init(argc, argv, "robot_news_rt");
+    ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<std_msgs::String>("/robot_news_radio", 10);
+    ros::Rate rate(3);
 
-ros::NodeHandle nh;
-
-ros::Publisher pub = nh.advertise<std_msgs::String>("/robot_news_radio", 10);
-
-ros::Rate rate(3);
-
-while (ros::ok()){
-
-std_msgs:: String msg;
-
-msg.data = "hey, Sathya here";
-
-pub.publish(msg);
-
-rate.sleep();
+    while (ros::ok()){
+        std_msgs:: String msg;
+        msg.data = "hey, Sathya here";
+        pub.publish(msg);
+        rate.sleep();
 
 }
 
