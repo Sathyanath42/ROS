@@ -9,3 +9,7 @@
    rostopic pub -r 5  /robot_news_radio std_msgs/String “data:‘Hello World’ “  %publish at the rate of 5 Hz
 4. additionally rosnode info can give you the same information as rostopic pub
 
+**************************************Using rqt_graph to get a graphical representation*******************************************
+
+This will show all the nodes involved in terms of publisher, subscribers and topics. 
+As can be seen from this, the subscriber node will only see the topic and not who is publishing to the topic, hence if we have multiple nodes publishing to the same topic, the subscriber will receive a mix of all the messages since it’s the same topic, all the more reason to ensure the nodes are genuinely unique.
