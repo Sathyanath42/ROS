@@ -124,6 +124,19 @@ $rosrun my_robot_tutorials robot_news_rt.py
 1. Note if there are two files of the same name and if the extension isn't given, Ros will run the C++ file
 2. ros::spinOnce() is necessary if you have callbacks from a subscriber, so its good practice to always add it.
 
+*************************Using anonymous nodes to launch multiple publishers and subscribers***********************************
+
+Note that ROS is language agnostic which means that you ca publish in one language and receive in another.
+But if there are two nods of the same name then you can’t launch both simultaneously unless you define one as anonymous as follows:
+
+rospy.init_node(‘robot_news_rt’, String, anonymous = True) for python
+
+ros::init (argc, argv, “robot_news_rt”,ros::init_options::AnonymousName); for C++
+
+The result of this is the node will have numbers attached at the end while launching for keeping it unique
+The same process applies to subscribers
+
+
 
 
 
