@@ -1,0 +1,11 @@
+***************************************************ROS command line tools*********************************************************
+
+1. rostopic echo /robot_news_rt :will give you the message being published
+1. rostopic info /robot_news_rt will give you information about the topic which includes the type of the message
+2. rostopic pub will allow you to publish to the topic as follows:
+   rostopic pub -1 /robot_news_radio std_msgs/String “data:‘Hello World’ “
+   will publish the message once after 3 seconds
+3. to repeat the message in intervals
+   rostopic pub -r 5  /robot_news_radio std_msgs/String “data:‘Hello World’ “  %publish at the rate of 5 Hz
+4. additionally rosnode info can give you the same information as rostopic pub
+
