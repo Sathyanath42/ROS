@@ -1,3 +1,5 @@
+NOTE : The topics placed here may not pay heed to the general order. Return to this file after reading the files ahead in case the applications are not understood.
+
 ****************************************************Turtle Sim
 
 Install the required packages using
@@ -17,5 +19,20 @@ Gives us control of the turtle using the keyboard keys
 turtlesim and teleop_turtle are the names of the nodes
 
 turtlesim_node, turtle_teleop_key are names of the executables
+
+********************************************Publisher and subscriber example using Turtle_sim
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
