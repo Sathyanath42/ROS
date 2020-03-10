@@ -4,7 +4,7 @@ We create a new node in scripts as usual
 *********************************************************PYTHON PUBLISHER******************************************************
 
 $touch robot_news_rt.py
-$chmod +X robot_news_rt.py (to make it executable)
+$chmod +x robot_news_rt.py (to make it executable)
 vim robot_news_rt.py (to edit the file)
 
 **********************************************************CODE
