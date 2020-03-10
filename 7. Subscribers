@@ -7,7 +7,7 @@ Consider the following executable
 
 ***********************************************************CODE
 
-#!/use/bin/env/python
+#!/usr/bin/env python
 import rospy
 import std.msgs.msg import String
 
