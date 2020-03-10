@@ -9,7 +9,7 @@ vim robot_news_rt.py (to edit the file)
 
 **********************************************************CODE
 
-#!/usr/bin/env/python
+#!/usr/bin/env python
 import rospy
 from std_msgs.msg import String 
 
