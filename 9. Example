@@ -3,7 +3,7 @@ A node number_publisher will publish the topic Number which will be of std_msgs/
 A node number counter will the nsubsrcibe rto this topic and then publish on a topic number_counter , the count of the numbers received.
 
 
-********************************************************SOLUTION
+***********************************************************SOLUTION*************************************************************
 
 *********************************number_radio (Publisher):
 
@@ -54,7 +54,8 @@ if __name__ == '__main__':
     rospy.loginfo("Node was stopped")
 
 
-OUTPUT
+***************************************************************OUTPUT
+
 $rostopic echo /number_radio
 data: 1
 ---
