@@ -1,0 +1,3 @@
+The problem dealt with here is as follows:
+A node number_publisher will publish the topic Number which will be of std_msgs/Int64 type.
+A node number counter will the nsubsrcibe rto this topic and then publish on a topic number_counter , the count of the numbers received.
