@@ -7,7 +7,7 @@ A node number counter will the nsubsrcibe rto this topic and then publish on a t
 
 *********************************number_radio (Publisher):
 
-#/usr/bin/env python
+#!/usr/bin/env python
 import rospy
 from std_msgs.msg import Int64
 
@@ -19,11 +19,9 @@ if __name__ == '__main__':
 
     while not rospy.is_shutdown():
         msg = Int64()
-        msg.data = 1
+        msg.data = 2
         pub.publish(msg)
         rate.sleep()
-        
-    rospy.loginfo("node was stopped")
         
 ********************************number_rec(Subscriber and publisher):
 
@@ -31,50 +29,45 @@ if __name__ == '__main__':
 import rospy
 from std_msgs.msg import Int64
 
-def callback_receive_radio_data(msg):
+counter = 0
+pub = None
 
-    rospy.loginfo("message recieved:")
-    rospy.loginfo(msg)
+def callback_receive_radio_data(msg):
+    global counter
+    counter += msg.data
+    new_msg = Int64()
+    new_msg.data = counter
+    pub.publish(new_msg)
 
 if __name__ == '__main__':
 
-    counter = 0
     rospy.init_node('number_rec', anonymous=True)
     sub = rospy.Subscriber("/Number",Int64, callback_receive_radio_data)
 
     pub = rospy.Publisher("/num_count", Int64, queue_size=10)
-    rate = rospy.Rate(2)
-    while not rospy.is_shutdown():
-        counter = counter + 1
-        msg = Int64()
-        msg.data = counter
-        pub.publish(msg)
-        rate.sleep()
-
-    rospy.loginfo("Node was stopped")
-
+    rospy.spin()
 
 ***************************************************************OUTPUT
 
 $rostopic echo /number_radio
-data: 1
+data: 2
 ---
-data: 1
+data: 2
 ---
-data: 1
+data: 2
 ---
-data: 1
+data: 2
 ---
 
 $rosrun my_robot_tutorials number_rec.py
 [INFO] [1583864197.733524]: message recieved:
-[INFO] [1583864197.734858]: data: 1
+[INFO] [1583864197.734858]: data: 2
 [INFO] [1583864198.235464]: message recieved:
-[INFO] [1583864198.237206]: data: 1
+[INFO] [1583864198.237206]: data: 2
 [INFO] [1583864198.732539]: message recieved:
-[INFO] [1583864198.734178]: data: 1
+[INFO] [1583864198.734178]: data: 2
 [INFO] [1583864199.233544]: message recieved:
-[INFO] [1583864199.235034]: data: 1
+[INFO] [1583864199.235034]: data: 2
 
 ~$ rostopic list
 /Number
@@ -84,15 +77,15 @@ $rosrun my_robot_tutorials number_rec.py
 
 ~$ rostopic echo /num_count
 
-data: 27
+data: 22
+---
+data: 24
+---
+data: 26
 ---
 data: 28
 ---
-data: 29
----
 data: 30
----
-data: 31
 
 
 
