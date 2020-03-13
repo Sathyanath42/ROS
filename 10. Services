@@ -1,0 +1,8 @@
+A ROS service is a client server/system, with the following features:
+1. synchronous
+2. for computations and quick actions like enabling an actuator
+3. one message type for request and one message type for response
+4. can be written in python or c++ directly inside ros nodes
+5. a service server can only exist once but can have many clients
+
+Note the difference from topics, which is a unidirectional data stream while here it is a client server relationship with to and fro communication.
