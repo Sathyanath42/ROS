@@ -36,6 +36,32 @@ if __name__ == '__main__':
     rospy.spin()                                      
 
 
-Note how we define the service with a name and a function (AddTwoInts) as well as a return statemnet called handle_
-AddTwoInts
+Note how we define the service with a name and the message type (AddTwoInts) and a call back (handle_addtwoints)
+
+python summer_server.py
+
+Output:
+[INFO] [1584412037.169277]: summer_server node created
+[INFO] [1584412037.172145]: service server has been started
+
+Now we can get the list of services using
+$rosservice list
+
+We can check the service using the following :
+
+$rosservice call /add_two_ints "a: 3
+b: 5" 
+sum: 8
+
+Output:
+[INFO] [1584412049.334541]: sum of 3 and 5 is 8
+
+
+
+
+
+
+
+
+
 
