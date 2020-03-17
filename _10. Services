@@ -28,7 +28,7 @@ from rospy_tutorials.srv import AddTwoInts
 
 def handle_addtwoints(req):
     result = req.a + req.b
-    rospy.loginfo("sum of " + str(req.a) + " and " + str(req.b) + " is " + str(result))
+    rospy.loginfo("python server : sum of " + str(req.a) + " and " + str(req.b) + " is " + str(result))
     return result
 
 if __name__ == '__main__':
@@ -97,6 +97,8 @@ But two servers cannot be run at the same time
 
 **************************************************Creating a C++ service server**********************************************
 
+$vim summer_server.cpp 
+*************************************************CODE
 #include <ros/ros.h>
 #include <rospy_tutorials/AddTwoInts.h>
 
@@ -109,7 +111,7 @@ bool handle_addtwoints(rospy_tutorials::AddTwoInts::Request &req,
 
 {
     int result = req.a + req.b;
-    ROS_INFO("%d + %d = %d", (int)req.a, (int)req.b, (int)result;)
+    ROS_INFO("The C++ server gives %d + %d = %d", (int)req.a, (int)req.b, (int)result);
 // in python we had to return the response
 //in C++ there is aleady a reference to the response in the parameter in the function, so we just fill the response with the data we want out as follows:
     res.sum = result;
@@ -125,6 +127,76 @@ int main (int argc, char **argv)
     ros::spin();
 
 }
+
+********************************************************************
+
+*****Add the following lines in the CMakeLists.txt file
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  rospy_tutorials
+)
+
+add_executable(summer_server src/summer_server.cpp)
+target_link_libraries(summer_server ${catkin_LIBRARIES})
+
+*******Add the following lines in package.xml
+<build_depend>rospy_tutorials</build_depend>
+<build_export_depend>rospy_tutorials</build_export_depend>
+<exec_depend>rospy_tutorials</exec_depend>
+
+catkin_ws$ catkin_make
+catkin_ws$ rosrun my_robot_tutorials summer_server
+
+OUTPUT
+$ rosservice call /add_two_ints "a: 1
+b: 2" 
+sum: 3
+
+**************************************************Creating a C++ service client**********************************************
+$vim summer_client.cpp 
+*************************************************CODE
+
+#include <ros/ros.h>
+#include <rospy_tutorials/AddTwoInts.h>
+
+int main (int argc, char **argv)
+{
+//we create the service client
+//
+    ros::init(argc, argv, "summer_client");
+    ros::NodeHandle nh;
+    ros::ServiceClient client =
+            nh.serviceClient<rospy_tutorials::AddTwoInts>("/add_two_ints");
+//we create the service and say what is the request    
+    rospy_tutorials::AddTwoInts srv;
+    srv.request.a = 12;
+    srv.request.b = 5;
+
+    if (client.call(srv)) {
+        ROS_INFO("returned c++ client sum is %d", (int)srv.response.sum);
+    }
+    else {
+       ROS_WARN("service call failed");
+    }
+}
+//client.call(srv) : this function with the service, will call the service server
+//the service server will receive this object with the request
+
+*****************************************************************
+
+*****Add the following lines in the CMakeLists.txt file
+
+add_executable(summer_client src/summer_client.cpp)
+target_link_libraries(summer_client ${catkin_LIBRARIES})
+
+OUTPUT
+
+$ rosrun my_robot_tutorials summer_server
+$ rosrun my_robot_tutorials summer_client
+[ INFO] [1584484978.246900054]: returned c++ client sum is 17
 
 
 
