@@ -95,8 +95,36 @@ Note
 Multiple clients will be able to call the server.
 But two servers cannot be run at the same time
 
+**************************************************Creating a C++ service server**********************************************
+
+#include <ros/ros.h>
+#include <rospy_tutorials/AddTwoInts.h>
+
+bool handle_addtwoints(rospy_tutorials::AddTwoInts::Request &req,
+                       rospy_tutorials::AddTwoInts::Response &res)
+
+//boolean value returned here is true and false
+//two parameters here, ref to a request and ref to the response 
 
 
+{
+    int result = req.a + req.b;
+    ROS_INFO("%d + %d = %d", (int)req.a, (int)req.b, (int)result;)
+// in python we had to return the response
+//in C++ there is aleady a reference to the response in the parameter in the function, so we just fill the response with the data we want out as follows:
+    res.sum = result;
+    return true;  //to show the service call was a success
+}
+
+int main (int argc, char **argv)
+{
+    ros::init(argc, argv, "summer_server");
+    ros::NodeHandle nh;
+
+    ros::ServiceServer server = nh.advertiseService("/add_two_ints", handle_addtwoints);
+    ros::spin();
+
+}
 
 
 
