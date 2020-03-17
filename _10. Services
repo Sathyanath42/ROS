@@ -11,4 +11,31 @@ Consider the following examples, a battery in a robot needs to communicate with 
 Now here the request to light up the LED from the battery node (3rd led light up) would be sent to the ROS service (Set LED)
 The service then sents this request to the LED node. When the LED has been successfully tunred on it returns the response to the service, which sends the message Success:True to the battery node.
 
+**************************************************Creating a python service server*************************************************
+
+We will create a service server that takes two numbers and returns the sum of the two.
+When defining the name of the service its always best to start with a verb.
+
+******************************************************CODE
+#!/usr/bin/env python
+
+import rospy
+from rospy_tutorials.srv import AddTwoInts
+
+def handle_addtwoints(req):
+    result = req.a + req.b
+    rospy.loginfo("sum of " + str(req.a) + " and " + str(req.b) + " is " + str(result))
+    return result
+
+if __name__ == '__main__':
+    rospy.init_node("summer_server")
+    rospy.loginfo("summer_server node created")
+
+    service = rospy.Service("/add_two_ints", AddTwoInts, handle_addtwoints)
+    rospy.loginfo("service server has been started")
+    rospy.spin()                                      
+
+
+Note how we define the service with a name and a function (AddTwoInts) as well as a return statemnet called handle_
+AddTwoInts
 
