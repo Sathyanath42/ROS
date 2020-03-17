@@ -11,10 +11,14 @@ Consider the following examples, a battery in a robot needs to communicate with 
 Now here the request to light up the LED from the battery node (3rd led light up) would be sent to the ROS service (Set LED)
 The service then sents this request to the LED node. When the LED has been successfully tunred on it returns the response to the service, which sends the message Success:True to the battery node.
 
-**************************************************Creating a python service server*************************************************
+***********************************************Creating a python service server*************************************************
 
 We will create a service server that takes two numbers and returns the sum of the two.
 When defining the name of the service its always best to start with a verb.
+
+touch summer_server.py
+chmod +x summer_server.py
+vim summer_server.py
 
 ******************************************************CODE
 #!/usr/bin/env python
@@ -57,7 +61,39 @@ Output:
 [INFO] [1584412049.334541]: sum of 3 and 5 is 8
 
 
+**************************************************Creating a Python service client**********************************************
 
+#!/usr/bin/env python
+
+import rospy
+from rospy_tutorials.srv import AddTwoInts
+
+if __name__ == '__main__':
+    rospy.init_node("summer_client")
+    
+#creating a service client
+
+    rospy.wait_for_service("/add_two_ints")
+    
+#this allows you to wait for the service until it is called
+#if it cant catch the service it throws an exception which we catch with a try except
+
+    try:
+        add_two_ints = rospy.ServiceProxy("/add_two_ints", AddTwoInts)
+        response = add_two_ints(2,8)
+        rospy.loginfo("sum is " + str(response.sum))
+    except rospy.ServiceException as e:
+        rospy.logwarn("service failed: " + str(e))
+
+$rosrun my_robot_tutorials summer_server.py
+$rosrun my_robot_tutorials summer_client.py
+
+output
+[INFO] [1584415870.701854]: sum is 10
+
+Note
+Multiple clients will be able to call the server.
+But two servers cannot be run at the same time
 
 
 
