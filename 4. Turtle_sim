@@ -48,6 +48,42 @@ angular:
 %Here we can individually change the value of each co ordinate and press enter to have the turtle move in that direction
 
 
+*************************************Service server and client example using Turtle_sim
+
+$ rosservice list
+/add_two_ints
+/clear
+/kill
+/reset
+/rosout/get_loggers
+/rosout/set_logger_level
+/spawn
+/summer_server/get_loggers
+/summer_server/set_logger_level
+/teleop_turtle/get_loggers
+/teleop_turtle/set_logger_level
+/turtle1/set_pen
+/turtle1/teleport_absolute
+/turtle1/teleport_relative
+/turtlesim/get_loggers
+/turtlesim/set_logger_level
+
+$ rosservice info /reset
+Node: /turtlesim
+URI: rosrpc://SVB:43333
+Type: std_srvs/Empty
+Args: 
+
+$ rosservice call /reset
+
+$ rosservice info /turtle1/teleport_relative
+Node: /turtlesim
+URI: rosrpc://SVB:43333
+Type: turtlesim/TeleportRelative
+Args: linear angular
+
+$ rosservice call /turtle1/teleport_relative "linear: 3.0
+angular: 4.0" 
 
 
 
