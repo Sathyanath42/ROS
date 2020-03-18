@@ -1,1 +1,50 @@
+$ rosservice -h
+Commands:
+	rosservice args	print service arguments
+	rosservice call	call the service with the provided args
+	rosservice find	find services by service type
+	rosservice info	print information about service
+	rosservice list	list active services
+	rosservice type	print service type
+	rosservice uri	print service ROSRPC uri
+
+$ rosrun my_robot_tutorials summer_server
+
+1. $ rosservice list  , gives the list of all the services currently running
+/add_two_ints
+/rosout/get_loggers
+/rosout/set_logger_level
+/summer_server/get_loggers
+/summer_server/set_logger_level
+
+2. $ rosservice info /add_two_ints
+Node: /summer_server      , which node is advertising the service
+URI: rosrpc://SVB:54247   , the uri
+Type: rospy_tutorials/AddTwoInts ,  the type of the service
+Args: a b , the arguments of the service
+
+3. $ rosservice call /add_two_ints "a: 1   , can be used to directly call a service from terminal
+b: 3" 
+sum: 4
+
+4. $rosnode info /summer_server
+Node [/summer_server]
+Publications: 
+ * /rosout [rosgraph_msgs/Log]
+
+Subscriptions: None
+
+Services: 
+ * /add_two_ints
+ * /summer_server/get_loggers
+ * /summer_server/set_logger_level
+
+
+contacting node http://SVB:43517/ ...
+Pid: 3605
+Connections:
+ * topic: /rosout
+    * to: /rosout
+    * direction: outbound
+    * transport: TCPROS
 
