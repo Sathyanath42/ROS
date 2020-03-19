@@ -1,1 +1,5 @@
+The problem dealt with here is as follows:
+A node number_publisher will publish the topic Number which will be of std_msgs/Int64 type.
+A node number counter will the subscriber to this topic and then publish on a topic number_counter , the counter which gives the sum of the msgs.
+Further here we add a service(reset_number_counter) of the message type std_srvs/SetBool to reset the number counter
 
