@@ -34,10 +34,13 @@ pub = None
 
 def callback_receive_radio_data(msg):
     global counter
+    rospy.loginfo("message received:")
+    rospy.loginfo(msg)
     counter += msg.data
     new_msg = Int64()
     new_msg.data = counter
     pub.publish(new_msg)
+
 
 if __name__ == '__main__':
 
