@@ -3,3 +3,65 @@ A node number_publisher will publish the topic Number which will be of std_msgs/
 A node number counter will the subscriber to this topic and then publish on a topic number_counter , the counter which gives the sum of the msgs.
 Further here we add a service(reset_number_counter) of the message type std_srvs/SetBool to reset the number counter
 
+*********************************************CODE OF THE COUNTER NODE
+
+#!/usr/bin/env python
+import rospy
+from std_msgs.msg import Int64
+from std_srvs.srv import SetBool
+
+counter = 0
+pub = None
+
+def callback_receive_radio_data(msg):
+    global counter
+    rospy.loginfo("message received:")
+    rospy.loginfo(msg)
+    counter += msg.data
+    new_msg = Int64()
+    new_msg.data = counter
+    pub.publish(new_msg)
+
+def callback_reset_counter(req):
+    if req.data :
+        global counter
+        counter = 0
+        return True, "Counter has been reset successfully"
+    return False, "Counter hasnt been reset"
+    
+OUTPUT
+
+$ rosrun my_robot_tutorials number_radio.py
+$ rosrun my_robot_tutorials number_rec.py
+[INFO] [1584584647.039990]: message received:
+[INFO] [1584584647.043297]: data: 2
+[INFO] [1584584647.535381]: message received:
+[INFO] [1584584647.536902]: data: 2
+
+$ rosservice list
+/number_radio/get_loggers
+/number_radio/set_logger_level
+/number_rec_5698_1584584485386/get_loggers
+/number_rec_5698_1584584485386/set_logger_level
+/reset_counter
+/rosout/get_loggers
+/rosout/set_logger_level
+/rostopic_5723_1584584541520/get_loggers
+/rostopic_5723_1584584541520/set_logger_level
+
+$ rosservice call /reset_counter "data: true" 
+success: True
+message: "Counter has been reset successfully"
+
+$ rostopic echo /num_count
+data: 506
+---
+data: 508
+---
+data: 510
+---
+data: 2
+---
+data: 4
+
+
