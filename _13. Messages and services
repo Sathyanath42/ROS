@@ -1,1 +1,8 @@
+ROS Message
 
+Topics would have only a request message
+Services would have a request and a response message.
+
+The message definition is run through the build system to generate the message in your chosen language.
+You can use primitive message types to create a message
+You can create a message defintion using other message definition
