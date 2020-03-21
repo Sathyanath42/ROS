@@ -62,6 +62,71 @@ You can find the created message at
 ~/catkin_ws/devel/include/my_robot_msgs$ ls
 HardwareStatus.h
 
+***************************************************Using the message in code
+We add dependencies in the package.xml as follows:
+ <depend>my_robot_msgs</depend>
+ 
+We add dependencies in the CMakeLists.txt as follows:
+
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  std_srvs
+  rospy_tutorials
+  my_robot_msgs
+  )
+
+Now we create a node to check the hardware status
+$vim hw_status_publisher.py
+$chmod +x hw_status_publisher.py
+************************************************************CODE
+
+#!/usr/bin/env python
+
+import rospy
+from my_robot_msgs.msg import HardwareStatus
+
+if __name__ == '__main__':
+    rospy.init_node("hardware_status_publisher")
+    
+    pub = rospy.Publisher("/my_robot/hardware_status", HardwareStatus, queue_size = 10)
+    
+    rate = rospy.Rate(5)
+    
+    while not rospy.is_shutdown():
+        msg = HardwareStatus()
+        msg.temperature = 45
+        msg.are_motors_up = True
+        msg.debug_message = "everything is running well"
+        pub.publish(msg)
+        rate.sleep()
+*******************************************************************
+
+$ rosrun my_robot_tutorials hw_status_publisher.py
+
+################## NOTE : $ source .bashrc  (This is needed when adding new dependencies)
+
+$ rostopic echo /my_robot/hardware_status
+temperature: 45
+are_motors_up: True
+debug_message: "everything is running well"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
