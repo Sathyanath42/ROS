@@ -112,7 +112,20 @@ temperature: 45
 are_motors_up: True
 debug_message: "everything is running well"
 
+***************************************************Creating a Service**********************************************************
 
+/catkin_ws/src/my_robot_msgs/srv$ touch ComputeDiskArea.srv
+vim ComputeDiskArea.srv
+
+******************************************CODE
+
+float64 radius
+---
+float64 area
+
+**********************************************
+
+Note the three dashes used to separate the two, received value and the response
 
 
 
