@@ -139,17 +139,98 @@ The created files can be found at
 ComputeDiskArea.h         ComputeDiskAreaResponse.h
 ComputeDiskAreaRequest.h  HardwareStatus.h
 
+************************************************Command Line tools for messages and services************************************
+
+rosmsg -h
+rosmsg is a command-line tool for displaying information about ROS Message types.
+
+Commands:
+	rosmsg show	Show message description
+	rosmsg info	Alias for rosmsg show
+	rosmsg list	List all messages
+	rosmsg md5	Display message md5sum
+	rosmsg package	List messages in a package
+	rosmsg packages	List packages that contain messages
 
 
+1. $ rosmsg list
+To show the complete list of messages
+
+2. $ rosmsg show my_robot_msgs/HardwareStatus
+int64 temperature
+bool are_motors_up
+string debug_message
+TO show the message definition
+
+*************************************************************
+
+rossrv -h
+rossrv is a command-line tool for displaying information about ROS Service types.
+
+Commands:
+	rossrv show	Show service description
+	rossrv info	Alias for rossrv show
+	rossrv list	List all services
+	rossrv md5	Display service md5sum
+	rossrv package	List services in a package
+	rossrv packages	List packages that contain services
+
+1. $ rossrv list
+To show the complete list of services
+
+2. $ rossrv show rospy_tutorials/AddTwoInts
+int64 a
+int64 b
+---
+int64 sum
+
+$ rossrv show my_robot_msgs/ComputeDiskArea
+float64 radius
+---
+float64 area
+
+To show the service definition
+
+***************************************************EG
+$ rosrun my_robot_tutorials number_radio.py
+$ rosrun my_robot_tutorials number_rec.py
+$ rosnode list
+/number_radio
+/number_rec_4509_1585019069656
+/rosout
+
+$ rosnode info /number_rec_4509_1585019069656
+--------------------------------------------------------------------------------
+Node [/number_rec_4509_1585019069656]
+Publications: 
+ * /num_count [std_msgs/Int64] NOTE THE MESSAGE
+ * /rosout [rosgraph_msgs/Log]
+
+Subscriptions: 
+ * /Number [std_msgs/Int64]
+
+Services: 
+ * /number_rec_4509_1585019069656/get_loggers
+ * /number_rec_4509_1585019069656/set_logger_level
+ * /reset_counter        NOTE THE SERVICE
 
 
+$ rosmsg show std_msgs/Int64
+int64 data
 
+$ rosservice info /reset_counter
+Node: /number_rec_4509_1585019069656
+URI: rosrpc://SVB:34901
+Type: std_srvs/SetBool
+Args: data
 
+$ rossrv show std_srvs/SetBool
+bool data
+---
+bool success
+string message
 
-
-
-
-
+Thus all the infomration we need about the message being published or the services used can be obtained this way
 
 
 
