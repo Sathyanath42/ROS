@@ -125,7 +125,19 @@ float64 area
 
 **********************************************
 
-Note the three dashes used to separate the two, received value and the response
+Note the three dashes used to separate the two, request and the response
+We add dependencies in the CMakeLists.txt as follows:
+## Generate services in the 'srv' folder
+add_service_files(
+   FILES
+   ComputeDiskArea.srv
+ )
+
+Run $catkin_make
+The created files can be found at
+~/catkin_ws/devel/include/my_robot_msgs$ ls
+ComputeDiskArea.h         ComputeDiskAreaResponse.h
+ComputeDiskAreaRequest.h  HardwareStatus.h
 
 
 
