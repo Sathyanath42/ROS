@@ -1,4 +1,6 @@
 
+#######################################################ROS PARAMETERS##########################################################
+
 ROS parameters are launched when the ROS master is launched
 Parameter Server : Its a dictionary, inside the ROS master, of global values accessible from anywhere from the environment
 ROS parameter :One shared variable stored inside the parameter server
@@ -113,7 +115,7 @@ int main (int argc, char **argv)
     }
 }
 
-
+####################################################ROS LAUNCH FILES###########################################################
 
 
 
