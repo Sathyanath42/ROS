@@ -18,7 +18,55 @@ bool success
 Rememeber to include the service in the CMakeLists.txt file
 
 **************************************************The LED server
+*********************CODE
+#!/usr/bin/env python
 
+import rospy
+from my_robot_msgs.srv import SetLed
+
+led_states = [0,0,0]
+
+def callback_set_led(req):
+    led_number = req.led_number
+    state = req.state
+    global led_states
+
+    if (led_number > len(led_states)) or (led_number <= 0):
+       return False
+
+    if not (state == 0 or state == 1):
+       return False
+
+    led_states[led_number - 1] = state
+
+    return True
+
+if __name__ == '__main__':
+    rospy.init_node('led_panel')
+    rospy.loginfo("led_panel_server has been created")
+    server = rospy.Service("/set_led",SetLed, callback_set_led)
+    rate = rospy.Rate(10)
+    while not rospy.is_shutdown():
+       rospy.loginfo(led_states)
+       rate.sleep()
+
+************************************************************
+~/catkin_ws/src/my_robot_tutorials/scripts$ pytn led_server.py
+[INFO] [1585106795.908311]: led_panel_server has been created
+[INFO] [1585106795.911466]: [0, 0, 0]
+[INFO] [1585106796.023030]: [0, 0, 0]
+[INFO] [1585106796.111869]: [0, 0, 0]
+
+$ rosservice call /set_led "led_number: 2
+state: 1" 
+success: True
+[INFO] [1585106854.415467]: [0, 1, 0]
+[INFO] [1585106854.511918]: [0, 1, 0]
+[INFO] [1585106854.613556]: [0, 1, 0]
+[INFO] [1585106854.715323]: [0, 1, 0]
+
+
+**************************************************The battery client
 
 
 
