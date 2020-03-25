@@ -93,9 +93,12 @@ if __name__ == '__main__':
        rospy.sleep(7)
        battery_state = "empty"
        rospy.loginfo("The battery is empty !")
+       set_led(battery_state)
        rospy.sleep(3)
        battery_state = "full"
        rospy.loginfo("The battery is now full !")
+       set_led(battery_state)
+
                             
 
 
