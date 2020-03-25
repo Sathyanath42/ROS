@@ -1,0 +1,95 @@
+
+ROS parameters are launched when the ROS master is launched
+Parameter Server : Its a dictionary, inside the ROS master, of global values accessible from anywhere from the environment
+ROS parameter :One shared variable stored inside the parameter server
+
+****************************************Command Line Tools
+
+$ rosparam
+rosparam is a command-line tool for getting, setting, and deleting parameters from the ROS Parameter Server.
+
+Commands:
+	rosparam set	set parameter
+	rosparam get	get parameter
+	rosparam load	load parameters from file
+	rosparam dump	dump parameters to file
+	rosparam delete	delete parameter
+	rosparam list	list parameter names
+
+$ rosparam list
+/rosdistro
+/roslaunch/uris/host_svb__32809
+/rosversion
+/run_id
+
+$ rosparam set /sensors_read_frequency 40
+$ rosparam set /robot_name "my_robot"
+
+$ rosparam list
+/robot_name
+/rosdistro
+/roslaunch/uris/host_svb__32809
+/rosversion
+/run_id
+/sensors_read_frequency
+
+$ rosparam get /robot_name
+my_robot
+$ rosparam get /sensors_read_frequency
+40
+
+*************************************************Params with python************************************************************
+
+~/catkin_ws/src/my_robot_tutorials/scripts$ vim number_radio.py
+
+****************************CODE
+#!/usr/bin/env python
+import rospy
+from std_msgs.msg import Int64
+
+if __name__ == '__main__':
+
+    rospy.init_node('number_radio')
+    pub = rospy.Publisher("/Number", Int64, queue_size = 10)
+    publish_frequency = rospy.get_param("/number_publish_frequency")
+    rate = rospy.Rate(publish_frequency)
+    number = rospy.get_param("/number_to_publish")
+    rospy.set_param("/message_received","Hello")
+    while not rospy.is_shutdown():
+        msg = Int64()
+        msg.data = number
+        pub.publish(msg)
+        rate.sleep()
+
+***********************create the two parameters using rosparam
+
+$ rosparam set /number_publish_frequency 2 
+$ rosparam set /number_to_publish 3
+
+This allows us to chnage both the publishing frequency and the number to be published without changes to the code
+Additionally the set_param in the code will allows us to define the global parameter via the code
+
+$ rosparam list
+/message_received
+/number_publish_frequency
+/number_to_publish
+/robot_name
+/rosdistro
+/roslaunch/uris/host_svb__32809
+/rosversion
+/run_id
+/sensors_read_frequency
+
+$ rosparam get /message_received
+Hello
+
+***************************************************Params with C++*************************************************************
+
+
+
+
+
+
+
+
+
