@@ -90,10 +90,68 @@ data: 28
 ---
 data: 30
 
+************************************************C++ Solution******************************************************************
+*********************************number_radio(publisher)
+~/catkin_ws/src/my_robot_tutorials/src$ touch number_radio.cpp
+~/catkin_ws/src/my_robot_tutorials/src$ vim number_radio.cpp
 
+******************CODE
+#include <ros/ros.h>
+#include <std_msgs/Int64.h>
 
+int main (int argc, char **argv)
+{
+    ros::init(argc, argv, "number_publisher", ros::init_options::AnonymousName);
+    ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<std_msgs::Int64>("/number",10);
 
+    ros::Rate rate(1);
+    while(ros::ok()) {
+      std_msgs::Int64 msg;
+      msg.data = 2;
+      pub.publish(msg);
+      rate.sleep();
+    }
+}
 
+*****************************
+Add the following lines to the CmakeLists.txt file
+add_executable(number_publisher src/number_radio.cpp)
+target_link_libraries(number_publisher ${catkin_LIBRARIES})
+
+$rosrun my_robot_tutorials number_publisher
+
+*********************************number_rec(client)
+~/catkin_ws/src/my_robot_tutorials/src$ touch number_rec.cpp
+~/catkin_ws/src/my_robot_tutorials/src$ vim number_rec.cpp
+
+******************CODE
+#include<ros/ros.h>
+#include<std_msgs/Int64.h>
+
+int counter = 0;
+ros::Publisher pub;
+
+void callback_receive_number_data(const std_msgs:: Int64& msg)
+{
+     counter +=msg.data;
+     std_msgs::Int64 new_msg;
+     new_msg.data = counter;
+     pub.publish(new_msg);
+}
+int main (int argc, char **argv)
+{
+    ros::init(argc, argv, "number_receiver", ros::init_options::AnonymousName);
+    ros::NodeHandle nh;
+    ros::Subscriber sub = nh.subscribe("/number",1080,callback_receive_number_data);
+    pub = nh.advertise<std_msgs::Int64>("/number_count",10);
+    ros::spin();
+
+}
+
+Add the following lines to the CmakeLists.txt file
+add_executable(number_receiver src/number_rec.cpp)
+target_link_libraries(number_receiver ${catkin_LIBRARIES})
 
 
 
