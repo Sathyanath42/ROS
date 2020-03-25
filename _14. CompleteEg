@@ -1,0 +1,29 @@
+Task:
+
+To create a server, service and client as follows:
+1. The client will be the battery level in a robot, which alternates between a full state every 7 seconds and an empty state every 3 seconds. The battery will send the request containing this info to the led server via a service called SetLed
+2. The led server will recieve the request and change any of its three leds into the state indicated by the battery. If the battery is full it will lit up no leds and if the battery is low it will light up 1 led
+3. The service will have the request message made up of an int64 led_number and an int64 led_state while the response will be a boolean Success
+
+*************************************************The Service Messages
+~/catkin_ws/src/my_robot_msgs/srv$ vim SetLed.srv 
+
+**********************CODE
+int64 led_number
+int64 state
+---
+bool success
+~               
+************************
+Rememeber to include the service in the CMakeLists.txt file
+
+**************************************************The LED server
+
+
+
+
+
+
+
+
+
