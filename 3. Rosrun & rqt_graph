@@ -7,9 +7,9 @@ rosrun <package> <executable>
 
 Example:
 We can use rosrun to directly execute the nodes as follows
-$rosrun my_robot_tutorials node_cpp
+$rosrun my_robot_tutorials node_cpp   (name of the node not the file)
 
-$rosrun my_robot_tutorials my_first_node.py
+$rosrun my_robot_tutorials my_first_node.py (name of the file not the node)
 
 $rosnode info nodename (info regarding the nodes)
 
