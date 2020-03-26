@@ -117,6 +117,66 @@ int main (int argc, char **argv)
 
 ####################################################ROS LAUNCH FILES###########################################################
 
+All the parameters defined will be removed when the rosmaster is closed.
+Here is where the launch file comes into play:
+We can create and define a list of parameters and their relevant nodes
+Further we can have multiple launch files inside one launch file
+
+~/catkin_ws/src/my_robot_bringup/launch$ 
+
+******************************CODE
+
+<launch>
+
+   <param name="/number_publish_frequency" type="double" value="3.0" />
+   <param name="/number_to_publish" type="int" value="10" />
+   <node name="number_publisher" pkg="my_robot_tutorials" type="number_publisher" />
+   <node name="number_rec" pkg="my_robot_tutorials" type="number_rec.py" />
+
+</launch>
+
+
+In the launch file define the values of the paramters
+further define the nodes that need access to them in the following format
+
+roslaunch will create a rosmaster if one doesnt exist
+
+$ roslaunch my_robot_bringup number_app.launch
+$ rosnode list
+/number_publisher
+/number_rec
+/rosout
+$ rostopic list
+/num_count
+/number
+/rosout
+/rosout_agg
+
+$ rostopic echo /num_count
+data: 680
+---
+data: 690
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
