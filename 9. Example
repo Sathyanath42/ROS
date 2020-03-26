@@ -45,7 +45,7 @@ def callback_receive_radio_data(msg):
 if __name__ == '__main__':
 
     rospy.init_node('number_rec', anonymous=True)
-    sub = rospy.Subscriber("/Number",Int64, callback_receive_radio_data)
+    sub = rospy.Subscriber("/number",Int64, callback_receive_radio_data)
 
     pub = rospy.Publisher("/num_count", Int64, queue_size=10)
     rospy.spin()
