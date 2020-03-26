@@ -33,9 +33,18 @@ Hit space to toggle paused, or 's' to step.
 
 ###############################################Working with multiple catkin workspaces##########################################
 
+Create a new workspace the same way as before
+the only thing to note here is that only one workspace can be active at a time
+hence for the bashrc file:
 
+$vim ~/.bashrc
 
+source /opt/ros/melodic/setup.bash
+#source ~/catkin_ws/devel/setup.bash
+source ~/another_catkin_ws/devel/setup.bash
 
+Here we comment all the catkin workspaces other than the one we are working on.
+This change will be needed each time we work on a new workspace
 
 
 
