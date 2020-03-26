@@ -1,0 +1,32 @@
+#####################################################Rosbag Functionality#######################################################
+
+rosbag functionality is used for capturing the messages published and then replaying them later
+$ rosrun my_robot_tutorials hw_status_publisher.py
+$ rostopic list
+/my_robot/hardware_status
+/rosout
+/rosout_agg
+
+$ rosbag record /my_robot/hardware_status
+[ INFO] [1585252934.105866252]: Subscribing to /my_robot/hardware_status
+[ INFO] [1585252934.111033639]: Recording to '2020-03-27-01-32-14.bag'.
+
+$ rosbag info 2020-03-27-01-32-14.bag
+path:        2020-03-27-01-32-14.bag
+version:     2.0
+duration:    23.8s
+start:       Mar 27 2020 01:32:14.51 (1585252934.51)
+end:         Mar 27 2020 01:32:38.31 (1585252958.31)
+size:        16.2 KB
+messages:    120
+compression: none [1/1 chunks]
+types:       my_robot_msgs/HardwareStatus [78c14d0acfcb188b1e76c88d6e81f318]
+topics:      /my_robot/hardware_status   120 msgs    : my_robot_msgs/HardwareStatus
+
+$ rosbag play 2020-03-27-01-32-14.bag
+[ INFO] [1585253056.150683115]: Opening 2020-03-27-01-32-14.bag
+
+Waiting 0.2 seconds after advertising topics... done.
+
+Hit space to toggle paused, or 's' to step.
+ [RUNNING]  Bag Time: 1585252934.513041   Duration: 0.000000 / 2 [RUNNING]  Bag Time: 1585252934.513168   Duration: 0.000128 / 2 [RUNNING]  Bag Time: 1585252934.614491   Duration: 0.101450 / 2 [RUNNING]  Bag Time: 1585252934.712599   Duration: 0.199558 / 2 [RUNNING]  Bag Time: 1585252934.819346   Duration: 0.306305 / 2
