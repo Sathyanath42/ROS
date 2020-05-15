@@ -44,6 +44,10 @@ string name
 
 The service consists of a request sent by the client and a reponse sent by the server: Above the x, y, theta and are part of the clinet request while the string name is the server response
 
+Now to create a new tutrle using spawn service:
+$ rosservice call /spawn 5 9 0 t1
+name: "t1"
+
 ***********************************************Creating a python service server*************************************************
 
 We will create a service server that takes two numbers and returns the sum of the two.
