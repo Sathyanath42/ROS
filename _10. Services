@@ -11,6 +11,39 @@ Consider the following examples, a battery in a robot needs to communicate with 
 Now here the request to light up the LED from the battery node (3rd led light up) would be sent to the ROS service (Set LED)
 The service then sents this request to the LED node. When the LED has been successfully tunred on it returns the response to the service, which sends the message Success:True to the battery node.
 
+*************************************************ROS Service with turtlesim****************************************************
+$rosrun turtlesim turtlesim_node
+$ rosservice list
+/clear
+/kill
+/reset
+/rosout/get_loggers
+/rosout/set_logger_level
+/spawn
+/turtle1/set_pen
+/turtle1/teleport_absolute
+/turtle1/teleport_relative
+/turtlesim/get_loggers
+/turtlesim/set_logger_level
+
+#(to get info about the service)
+$ rosservice info /spawn
+Node: /turtlesim
+URI: rosrpc://SVB:53821
+Type: turtlesim/Spawn
+Args: x y theta name
+
+#to get info about the service type
+$ rossrv info turtlesim/Spawn
+float32 x
+float32 y
+float32 theta
+string name
+---
+string name
+
+The service consists of a request sent by the client and a reponse sent by the server: Above the x, y, theta and are part of the clinet request while the string name is the server response
+
 ***********************************************Creating a python service server*************************************************
 
 We will create a service server that takes two numbers and returns the sum of the two.
