@@ -33,7 +33,7 @@ catkin_package(
   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
 #  DEPENDS system_lib
 )
- Now we can work on creating the messgae as follows
+ Now we can work on creating the message as follows
 $ mkdir msg
 $ cd msg
 $ touch HardwareStatus.msg
