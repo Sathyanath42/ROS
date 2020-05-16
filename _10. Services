@@ -66,7 +66,22 @@ if __name__ == '__main__':
     rospy.spin()                                      
 
 **********************************************Creating a python service client*************************************************
+#!/usr/bin/env python
 
+import rospy
+from my_robot_msgs.srv import rect_area
+
+if __name__ == '__main__':
+    rospy.init_node("area_client")
+    rospy.wait_for_service("/rect_area")
+
+    
+    try:
+        rectangle_area = rospy.ServiceProxy("/rect_area", rect_area)
+        response = rectangle_area(2,8)
+        rospy.loginfo("area is " + str(response.area))
+    except rospy.ServiceException as e:
+        rospy.logwarn("service failed: " + str(e))
 *******************************************************************************************************************************
 
 Consider the following example, a battery in a robot needs to communicate with the led panel on it. When the battery is low is a single led of the three should light up and so on.
