@@ -47,8 +47,25 @@ name: "t1"
 Consider the eample, of feeing the length and breadth of a rectangle to the service to have the server return the area
 
 ***********************************************Creating a python service server*************************************************
+#!/usr/bin/env python
 
+import rospy
+from my_robot_msgs.srv import rect_area
 
+def handle_rect_area(req):
+    result = req.length * req.breadth
+    rospy.loginfo("python server : Area of rect with length " + str(req.length) + " and breadth" + str(req.breadth) + " is " + str(result))
+    return result
+
+if __name__ == '__main__':
+    rospy.init_node("Area_server")
+    rospy.loginfo("Area_server node created")
+
+    service = rospy.Service("/rect_area", rect_area, handle_rect_area)
+    rospy.loginfo("service server has been started")
+    rospy.spin()                                      
+
+**********************************************Creating a python service client*************************************************
 
 *******************************************************************************************************************************
 
