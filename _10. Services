@@ -7,10 +7,6 @@ A ROS service is a client server/system, with the following features:
 
 Note the difference from topics, which is a unidirectional data stream while here it is a client server relationship with to and fro communication.
 
-Consider the following examples, a battery in a robot needs to communicate with the led panel on it. When the battery is low is a single led of the three should light up and so on.
-Now here the request to light up the LED from the battery node (3rd led light up) would be sent to the ROS service (Set LED)
-The service then sents this request to the LED node. When the LED has been successfully tunred on it returns the response to the service, which sends the message Success:True to the battery node.
-
 *************************************************ROS Service with turtlesim****************************************************
 $rosrun turtlesim turtlesim_node
 $ rosservice list
@@ -47,6 +43,18 @@ The service consists of a request sent by the client and a reponse sent by the s
 Now to create a new tutrle using spawn service:
 $ rosservice call /spawn 5 9 0 t1
 name: "t1"
+*******************************************************************************************************************************
+Consider the eample, of feeing the length and breadth of a rectangle to the service to have the server return the area
+
+***********************************************Creating a python service server*************************************************
+
+
+
+*******************************************************************************************************************************
+
+Consider the following example, a battery in a robot needs to communicate with the led panel on it. When the battery is low is a single led of the three should light up and so on.
+Now here the request to light up the LED from the battery node (3rd led light up) would be sent to the ROS service (Set LED)
+The service then sents this request to the LED node. When the LED has been successfully tunred on it returns the response to the service, which sends the message Success:True to the battery node.
 
 ***********************************************Creating a python service server*************************************************
 
