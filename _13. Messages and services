@@ -1,3 +1,6 @@
+We create a package solely for the user defined messages and services as follows:
+/catkin_ws/src$ catkin_create_pkg my_robot_msgs roscpp rospy std_msgs
+
 **************************************************************ROS Message
 
 1. The message definition is run through the build system to generate the message in your chosen language.
