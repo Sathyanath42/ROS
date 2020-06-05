@@ -1,4 +1,4 @@
-ROS is a framework to connect multiple different applications written as nodes on the framework. Consider the following example
+ROS is a framework to connect multiple different applications written as nodes on the framework.Consider the following example
 Given a project such as a drone that can capture images:
 1. One node could be the camera capture and image processing
 2. While another node could be for the movement and control of the node
